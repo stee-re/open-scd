@@ -30,7 +30,10 @@ import {
   getNameAttribute,
 } from '@openscd/open-scd/src/foundation.js';
 import { SelectedItemsChangedEvent } from '@openscd/open-scd/src/oscd-filter-button.js';
-import { Nsdoc } from '@openscd/open-scd/src/foundation/nsdoc.js';
+import {
+  initializeNsdoc,
+  Nsdoc,
+} from '@openscd/open-scd/src/foundation/nsdoc.js';
 import { getIcon } from '@openscd/open-scd/src/icons/icons.js';
 import { OscdApi, newEditEventV2, InsertV2 } from '@openscd/core';
 import { CreateIedDialog } from './ied/create-ied-dialog.js';
@@ -46,7 +49,7 @@ export default class IedPlugin extends LitElement {
 
   /** All the nsdoc files that are being uploaded via the settings. */
   @property()
-  nsdoc!: Nsdoc;
+  nsdoc: Nsdoc = initializeNsdoc();
 
   @property()
   oscdApi: OscdApi | null = null;

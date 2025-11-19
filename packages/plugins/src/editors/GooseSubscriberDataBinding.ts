@@ -1,6 +1,9 @@
 import { css, html, LitElement, property, TemplateResult } from 'lit-element';
 
-import { Nsdoc } from '@openscd/open-scd/src/foundation/nsdoc.js';
+import {
+  initializeNsdoc,
+  Nsdoc,
+} from '@openscd/open-scd/src/foundation/nsdoc.js';
 
 import './subscription/fcda-binding-list.js';
 import './subscription/later-binding/ext-ref-ln-binding-list.js';
@@ -12,7 +15,7 @@ export default class GooseSubscribeDataBindingPlugin extends LitElement {
   @property({ type: Number })
   editCount = -1;
   @property()
-  nsdoc!: Nsdoc;
+  nsdoc: Nsdoc = initializeNsdoc();
 
   render(): TemplateResult {
     return html`<div>
