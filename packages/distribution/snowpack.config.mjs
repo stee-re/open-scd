@@ -35,5 +35,6 @@ export default {
   },
   buildOptions: {
     baseUrl: process.env.PUBLIC_URL || '/',
+    htmlFragments: true,
   },
 };
