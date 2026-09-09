@@ -2,21 +2,17 @@ import { expect, fixture, html } from '@open-wc/testing';
 import fc from 'fast-check';
 import { SinonSpy, spy } from 'sinon';
 
-import '@openscd/open-scd/test/mock-wizard-editor.js';
-import { MockWizardEditor } from '@openscd/open-scd/test/mock-wizard-editor.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockWizardEditor } from '@compas-oscd/open-scd/dist/test-helper';
 
 import { ListItemBase } from '@material/mwc-list/mwc-list-item-base';
 
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   newWizardEvent,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
-import { 
-  isCreate, 
-  Create, 
-  Replace 
-} from '@openscd/core/foundation/deprecated/editor.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import { isCreate, Create, Replace } from '@compas-oscd/core';
 import { regExp, regexString } from '../../foundation.js';
 import { editLNodeWizard, lNodeWizard } from '../../../src/wizards/lnode.js';
 
@@ -183,6 +179,7 @@ describe('Wizards for LNode element', () => {
         listItems[2].selected = true;
         listItems[3].selected = true;
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         await primaryAction.click();
 
         expect(actionEvent).to.have.be.calledThrice;
@@ -194,6 +191,7 @@ describe('Wizards for LNode element', () => {
       it('does set iedName, lnCalss, lnInst and lnType', async () => {
         listItems[2].selected = true;
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         await primaryAction.click();
 
         expect(actionEvent).to.have.be.calledOnce;
@@ -207,6 +205,7 @@ describe('Wizards for LNode element', () => {
       it('does not set ldInst and prefix', async () => {
         listItems[4].selected = true;
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         await primaryAction.click();
 
         expect(actionEvent).to.have.be.calledOnce;
@@ -218,6 +217,7 @@ describe('Wizards for LNode element', () => {
       it('makes sure that lnInst is unique in case lnClass is existing already', async () => {
         listItems[4].selected = true;
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         await primaryAction.click();
 
         expect(actionEvent).to.have.be.calledOnce;
@@ -229,6 +229,7 @@ describe('Wizards for LNode element', () => {
         listItems[3].selected = true;
         listItems[5].selected = true;
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         await primaryAction.click();
 
         expect(actionEvent).to.have.be.calledTwice;
@@ -241,6 +242,7 @@ describe('Wizards for LNode element', () => {
       it('does add empty string to LNode with lnClass LLN0', async () => {
         listItems[0].selected = true;
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         await primaryAction.click();
 
         expect(actionEvent).to.have.be.calledOnce;
@@ -273,6 +275,60 @@ describe('Wizards for LNode element', () => {
 
       it('looks like the latest snapshot', async () =>
         await expect(element.wizardUI.dialog).to.equalSnapshot());
+    });
+
+    describe('when selecting IEDs through filtered-list', () => {
+      let iedList: HTMLElement;
+      let nextButton: HTMLElement;
+
+      beforeEach(async () => {
+        const wizard = lNodeWizard(
+          doc.querySelector('ConductingEquipment[name="QA1"]')!
+        );
+        element.dispatchEvent(newWizardEvent(wizard));
+        await element.requestUpdate();
+
+        iedList = <HTMLElement>(
+          element.wizardUI.dialog?.querySelector('filtered-list#iedList')
+        );
+
+        nextButton = <HTMLElement>(
+          element.wizardUI.dialog?.querySelector(
+            'mwc-button[dialogAction="next"]'
+          )
+        );
+      });
+
+      it('populates logical nodes list when IEDs are selected', async () => {
+        const iedItem = <ListItemBase>(
+          iedList.querySelector('mwc-check-list-item[value="IED2"]')
+        );
+        expect(iedItem).to.exist;
+
+        iedItem.selected = true;
+        await iedItem.requestUpdate();
+
+        iedList.dispatchEvent(
+          new CustomEvent('selected', {
+            bubbles: true,
+            composed: true,
+          })
+        );
+        await element.requestUpdate();
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        nextButton.click();
+        await element.requestUpdate();
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        const lnList = element.wizardUI.dialogs[1]?.querySelector(
+          'filtered-list#lnList'
+        );
+        expect(lnList).to.exist;
+
+        const lnItems = lnList?.querySelectorAll('mwc-check-list-item');
+        expect(lnItems?.length).to.be.greaterThan(0);
+      });
     });
   });
 
@@ -356,6 +412,8 @@ describe('Wizards for LNode element', () => {
 
         input.nullSwitch?.click();
         input.value = 'somepref';
+
+        await new Promise(resolve => setTimeout(resolve, 0));
 
         primaryAction.click();
         await element.requestUpdate();

@@ -16,7 +16,7 @@ import { Menu } from '@material/mwc-menu';
 import { IconButton } from '@material/mwc-icon-button';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 
-import '@openscd/open-scd/src/action-pane.js';
+import '@compas-oscd/open-scd/dist/action-pane.js';
 import './bay-editor.js';
 import './general-equipment-editor.js';
 import './ied-editor.js';
@@ -33,14 +33,14 @@ import {
   newWizardEvent,
   SCLTag,
   tags,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   getChildElementsByTagName,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
-import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
-import { voltageLevelIcon } from '@openscd/open-scd/src/icons/icons.js';
+import { newActionEvent } from '@compas-oscd/core';
+import '@compas-oscd/open-scd/dist/icons/icons.components.js';
 import { SubstationEditor } from './substation-editor.js';
 import { emptyWizard, wizards } from '../../wizards/wizard-library.js';
 import { Dialog } from '@material/mwc-dialog';
@@ -227,7 +227,7 @@ export class VoltageLevelEditor extends LitElement {
   render(): TemplateResult {
     return html`${this.renderRedirectUI()}<action-pane label="${this.header}">
         <mwc-icon class="substation-editor-icon" slot="icon"
-          >${voltageLevelIcon}</mwc-icon
+          > <custom-icon-voltagelevel></custom-icon-voltagelevel> </mwc-icon
         >
         <abbr slot="action" title="${get('lnode.tooltip')}">
           <mwc-icon-button

@@ -1,10 +1,7 @@
 import { LitElement, property } from 'lit-element';
 import { get } from 'lit-translate';
 
-import {
-  newIssueEvent,
-  newLogEvent,
-} from '@openscd/core/foundation/deprecated/history.js';
+import { newIssueEvent, newLogEvent } from '@compas-oscd/core';
 
 import {
   getSchema,
@@ -14,7 +11,7 @@ import {
   ValidationResult,
   Validator,
   WorkerMessage,
-} from '@openscd/open-scd/src/schemas.js';
+} from '@compas-oscd/open-scd/dist/schemas.js';
 
 const validators: Partial<Record<string, Validator>> = {};
 
@@ -32,7 +29,7 @@ export default class ValidateSchema extends LitElement {
     if (!window.Worker) throw new Error(get('validator.schema.fatal'));
     if (validators[xsdName]) return validators[xsdName]!;
 
-    const worker: Worker = new Worker('public/js/worker.js');
+    const worker: Worker = new Worker('js/worker.js');
 
     async function validate(
       xml: string,

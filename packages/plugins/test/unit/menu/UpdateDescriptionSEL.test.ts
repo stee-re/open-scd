@@ -1,14 +1,10 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { SinonSpy, spy } from 'sinon';
 
-import '@openscd/open-scd/test/mock-open-scd.js';
-import { MockOpenSCD } from '@openscd/open-scd/test/mock-open-scd.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockOpenSCD } from '@compas-oscd/open-scd/dist/test-helper';
 
-import {
-  ComplexAction,
-  isSimple,
-  isReplace,
-} from '@openscd/core/foundation/deprecated/editor.js';
+import { ComplexAction, isSimple, isReplace } from '@compas-oscd/core';
 import UpdateDescriptionSel from '../../../src/menu/UpdateDescriptionSEL.js';
 
 describe('Update method for desc attributes in SEL IEDs', () => {
@@ -96,6 +92,8 @@ describe('Update method for desc attributes in SEL IEDs', () => {
       });
 
       it('allows to update selected desc attributes updates', async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
+
         parent.wizardUI?.dialog
           ?.querySelector<HTMLElement>('mwc-button[slot="primaryAction"]')!
           .click();
@@ -127,6 +125,8 @@ describe('Update method for desc attributes in SEL IEDs', () => {
       });
 
       it('allows to update selected desc attributes updates', async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
+
         parent.wizardUI?.dialog
           ?.querySelector<HTMLElement>('mwc-button[slot="primaryAction"]')!
           .click();

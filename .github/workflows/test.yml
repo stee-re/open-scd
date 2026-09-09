@@ -11,16 +11,21 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
 
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          node-version: "18.x"
+          cache: true
+          
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
+        with:
+          node-version: "24.x"
 
       - name: Install and Test
         run: |
-          npm i @nx/nx-linux-x64-gnu
-          npm clean-install
-          npx playwright install chromium --with-deps
-          npm run-script test
+          pnpm i @nx/nx-linux-x64-gnu
+          pnpm clean-install
+          pnpm exec playwright install --with-deps chromium
+          pnpm run-script test

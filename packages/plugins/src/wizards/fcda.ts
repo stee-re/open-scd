@@ -1,19 +1,20 @@
 import { html } from 'lit-element';
 import { get } from 'lit-translate';
 
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
   find,
   Wizard,
   WizardAction,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   createElement,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
-import { FinderList } from '@openscd/open-scd/src/finder-list.js';
+import { FinderList } from '@compas-oscd/open-scd/dist/finder-list.js';
 import {
   dataAttributePicker,
   getDataModelChildren,
@@ -111,7 +112,7 @@ export function createFCDAsWizard(parent: Element): Wizard {
         icon: 'add',
         action: createFCDAsAction(parent),
       },
-      content: [server ? dataAttributePicker(server) : html``],
+      content: [server ? dataAttributePicker(server) : oscdHtml``],
     },
   ];
 }

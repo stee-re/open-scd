@@ -1,22 +1,22 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { SinonSpy, spy } from 'sinon';
 
-import '@openscd/open-scd/src/addons/Wizards.js';
-import { OscdWizards } from '@openscd/open-scd/src/addons/Wizards.js';
+import '@compas-oscd/open-scd/addons/Wizards.js';
+import { OscdWizards } from '@compas-oscd/open-scd/addons/Wizards.js';
 
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   WizardInputElement,
   patterns,
-} from '@openscd/open-scd/src/foundation.js';
-import { 
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import {
   isCreate,
   isDelete,
   isReplace,
-  Create, 
-  Delete, 
-  Replace
-} from '@openscd/core/foundation/deprecated/editor.js';
+  Create,
+  Delete,
+  Replace,
+} from '@compas-oscd/core';
 import {
   createSubNetworkWizard,
   editSubNetworkWizard,
@@ -264,6 +264,7 @@ describe('Wizards for SCL element SubNetwork', () => {
         (<WizardTextField>input).value = '100.0';
         (<WizardTextField>input).multiplier = 'M';
 
+        await new Promise(resolve => setTimeout(resolve, 0));
         primaryAction.click();
         await element.requestUpdate();
 
@@ -303,6 +304,8 @@ describe('Wizards for SCL element SubNetwork', () => {
 
         (<WizardTextField>input).nullSwitch?.click();
         (<WizardTextField>input).value = '100.0';
+
+        await new Promise(resolve => setTimeout(resolve, 0));
 
         primaryAction.click();
         await element.requestUpdate();

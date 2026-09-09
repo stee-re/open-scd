@@ -1,19 +1,20 @@
 import { html, TemplateResult } from 'lit-element';
 import { get } from 'lit-translate';
 
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
   getValue,
   Wizard,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   cloneElement,
   createElement,
   getChildElementsByTagName,
-} from '@openscd/xml';
-import { SimpleAction } from '@openscd/core/foundation/deprecated/editor.js';
+} from '@compas-oscd/xml';
+import { SimpleAction } from '@compas-oscd/core';
 
 function createProcessAction(parent: Element): WizardActor {
   return (inputs: WizardInputElement[]) => {
@@ -65,7 +66,7 @@ export function contentProcessWizard(
   content: ContentOptions
 ): TemplateResult[] {
   return [
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="name"
       .maybeValue=${content.name}
       helper="${get('scl.name')}"
@@ -74,13 +75,13 @@ export function contentProcessWizard(
       .reservedValues=${content.reservedNames}
       dialogInitialFocus
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       .maybeValue=${content.desc}
       nullable
       helper="${get('scl.desc')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="type"
       .maybeValue=${content.type}
       nullable

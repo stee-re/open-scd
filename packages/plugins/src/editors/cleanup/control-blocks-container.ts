@@ -24,20 +24,21 @@ import { Checkbox } from '@material/mwc-checkbox';
 import { List, MWCListIndex } from '@material/mwc-list';
 import { ListItem } from '@material/mwc-list/mwc-list-item.js';
 
-import '@openscd/open-scd/src/filtered-list.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
+import { FilteredList } from '@compas-oscd/open-scd/dist/filtered-list.js';
 
 import {
   identity,
   isPublic,
   newSubWizardEvent,
-} from '@openscd/open-scd/src/foundation.js';
-import { Delete, newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import { Delete, newActionEvent } from '@compas-oscd/core';
 import { styles } from '../templates/foundation.js';
 import {
   controlBlockIcons,
   getFilterIcon,
   iconType,
-} from '@openscd/open-scd/src/icons/icons.js';
+} from '@compas-oscd/open-scd/dist/icons/icons.js';
 import { editGseControlWizard, getGSE } from '../../wizards/gsecontrol.js';
 import { editReportControlWizard } from '../../wizards/reportcontrol.js';
 import {
@@ -87,13 +88,13 @@ export class CleanupControlBlocks extends LitElement {
   unreferencedControls: Element[] = [];
 
   @property({ attribute: false })
-  selectedControlItems: MWCListIndex | [] = [];
+  selectedControlItems: MWCListIndex = new Set<number>();
 
   @query('.deleteButton')
   cleanButton!: Button;
 
   @query('.cleanupList')
-  cleanupList: List | undefined;
+  cleanupList: FilteredList | undefined;
 
   @queryAll('mwc-check-list-item.cleanupListItem')
   cleanupListItems: ListItem[] | undefined;
@@ -130,7 +131,7 @@ export class CleanupControlBlocks extends LitElement {
    */
   async firstUpdated(): Promise<void> {
     this.cleanupList?.addEventListener('selected', () => {
-      this.selectedControlItems = this.cleanupList!.index;
+      this.selectedControlItems = this.cleanupList!.list.index;
     });
     this.toggleHiddenClass('tReportControl');
   }

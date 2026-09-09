@@ -3,23 +3,17 @@ import { classMap } from 'lit-html/directives/class-map.js';
 
 import './function-editor.js';
 
-import { identity, isPublic } from '@openscd/open-scd/src/foundation.js';
+import { identity, isPublic } from '@compas-oscd/open-scd/dist/foundation.js';
 
-import { getChildElementsByTagName } from '@openscd/xml';
+import { getChildElementsByTagName } from '@compas-oscd/xml';
 
-import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
-import {
-  circuitBreakerIcon,
-  disconnectorIcon,
-  currentTransformerIcon,
-  voltageTransformerIcon,
-  earthSwitchIcon,
-  generalConductingEquipmentIcon,
-} from '@openscd/open-scd/src/icons/icons.js';
+import { newActionEvent } from '@compas-oscd/core';
+
+import '@compas-oscd/open-scd/dist/icons/icons.components.js';
 import { typeStr } from '../../wizards/conductingequipment.js';
 import { Select } from '@material/mwc-select';
 
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import { get } from 'lit-translate';
 
 import { BayEditor } from './bay-editor.js';
@@ -553,7 +547,7 @@ function checkInstanceOfParentClass<E extends ElementEditor>(
  * @returns The icon.
  */
 export function getIcon(condEq: Element): TemplateResult {
-  return typeIcons[typeStr(condEq)] ?? generalConductingEquipmentIcon;
+  return typeIcons[typeStr(condEq)] ?? html`<custom-icon-generalconductingequipment></custom-icon-generalconductingequipment>`;
 }
 /**
  * Creates a general-equipment template literal.
@@ -593,11 +587,11 @@ export function renderGeneralEquipment(
 }
 
 const typeIcons: Partial<Record<string, TemplateResult>> = {
-  CBR: circuitBreakerIcon,
-  DIS: disconnectorIcon,
-  CTR: currentTransformerIcon,
-  VTR: voltageTransformerIcon,
-  ERS: earthSwitchIcon,
+  CBR: html`<custom-icon-circuitbreaker></custom-icon-circuitbreaker>`,
+  DIS: html`<custom-icon-disconnector></custom-icon-disconnector>`,
+  CTR: html`<custom-icon-currenttransformer></custom-icon-currenttransformer>`,
+  VTR: html`<custom-icon-voltagetransformer></custom-icon-voltagetransformer>`,
+  ERS: html`<custom-icon-earthswitch></custom-icon-earthswitch>`,
 };
 
 // Substation element hierarchy

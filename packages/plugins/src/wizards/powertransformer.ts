@@ -1,19 +1,20 @@
 import { html, TemplateResult } from 'lit-element';
 import { get } from 'lit-translate';
 
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
   getValue,
   isPublic,
   Wizard,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   createElement,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
-import { EditorAction } from '@openscd/core/foundation/deprecated/editor.js';
+import { EditorAction } from '@compas-oscd/core';
 
 import { replaceNamingAction } from './foundation/actions.js';
 
@@ -47,7 +48,7 @@ export function renderPowerTransformerWizard(
   reservedNames: string[]
 ): TemplateResult[] {
   return [
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="name"
       .maybeValue=${name}
       helper="${get('powertransformer.wizard.nameHelper')}"
@@ -56,13 +57,13 @@ export function renderPowerTransformerWizard(
       dialogInitialFocus
       .reservedValues=${reservedNames}
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       .maybeValue=${desc}
       nullable
       helper="${get('powertransformer.wizard.descHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="type"
       .maybeValue=${type}
       disabled

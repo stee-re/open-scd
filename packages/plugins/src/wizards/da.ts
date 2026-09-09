@@ -4,8 +4,9 @@ import { get } from 'lit-translate';
 import '@material/mwc-button';
 import '@material/mwc-list/mwc-list-item';
 
-import '@openscd/open-scd/src/wizard-checkbox.js';
-import '@openscd/open-scd/src/wizard-select.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js'
+import '@compas-oscd/open-scd/dist/wizard-checkbox.js';
+import '@compas-oscd/open-scd/dist/wizard-select.js';
 import {
   getValue,
   isPublic,
@@ -14,14 +15,14 @@ import {
   WizardActor,
   WizardInputElement,
   WizardMenuActor,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   cloneElement,
   createElement,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
-import { EditorAction, newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
+import { EditorAction, newActionEvent } from '@compas-oscd/core';
 import { getValAction, wizardContent } from './abstractda.js';
 import { functionalConstraintEnum } from './foundation/enums.js';
 
@@ -41,7 +42,7 @@ export function renderDa(
   dupd: string | null
 ): TemplateResult[] {
   return [
-    html`<wizard-select
+    oscdHtml`<wizard-select
       label="fc"
       .maybeValue=${fc}
       helper="${get('scl.fc')}"
@@ -49,22 +50,22 @@ export function renderDa(
       fixedMenuPosition
       >${functionalConstraintEnum.map(
         fcOption =>
-          html`<mwc-list-item value="${fcOption}">${fcOption}</mwc-list-item>`
+          oscdHtml`<mwc-list-item value="${fcOption}">${fcOption}</mwc-list-item>`
       )}</wizard-select
     >`,
-    html`<wizard-checkbox
+    oscdHtml`<wizard-checkbox
       label="dchg"
       .maybeValue=${dchg}
       helper="${get('scl.dchg')}"
       nullable
     ></wizard-checkbox>`,
-    html`<wizard-checkbox
+    oscdHtml`<wizard-checkbox
       label="qchg"
       .maybeValue=${qchg}
       helper="${get('scl.qchg')}"
       nullable
     ></wizard-checkbox>`,
-    html`<wizard-checkbox
+    oscdHtml`<wizard-checkbox
       label="dupd"
       .maybeValue=${dupd}
       helper="${get('scl.dupd')}"

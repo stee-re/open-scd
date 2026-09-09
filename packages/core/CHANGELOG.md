@@ -1,5 +1,42 @@
 # Changelog
 
+## [0.2.3](https://github.com/com-pas/open-scd/compare/core@v0.2.2...core@v0.2.3) (2026-07-09)
+
+
+### 📦 Miscellaneous Chores
+
+* update repository URLs to use com-pas organisation ([#145](https://github.com/com-pas/open-scd/issues/145)) ([d35b5ef](https://github.com/com-pas/open-scd/commit/d35b5eff1b31dd084b1156ab71f7fbae873102d1))
+
+## [0.2.2](https://github.com/com-pas/open-scd/compare/core@v0.2.1...core@v0.2.2) (2026-07-09)
+
+
+### 📦 Miscellaneous Chores
+
+* migrate to pnpm ([#100](https://github.com/com-pas/open-scd/issues/100)) ([99da4ec](https://github.com/com-pas/open-scd/commit/99da4ec8128a745fd9821e3e6d87e64abdd70ef5))
+* pin dependencies + add npm dependabot config ([#102](https://github.com/com-pas/open-scd/issues/102)) ([b7ebf11](https://github.com/com-pas/open-scd/commit/b7ebf1138241c471005060319c3268b66ec9c488))
+
+## [0.2.1](https://github.com/com-pas/open-scd/compare/core@v0.2.0...core@v0.2.1) (2026-05-26)
+
+
+### 📦 Miscellaneous Chores
+
+* trigger workflow ([8af8d1b](https://github.com/com-pas/open-scd/commit/8af8d1bef5dde354b57fd3e726fa60ff0f80704f))
+
+## [0.2.0](https://github.com/com-pas/open-scd/compare/core@v0.1.23...core@v0.2.0) (2026-05-19)
+
+
+### ✨ Features
+
+* replace editor with @openscd/oscd-editor ([ff330a8](https://github.com/com-pas/open-scd/commit/ff330a8d035ab9c09443473fd23e3c74ecb4a225))
+* use official xml editor ([f5b0517](https://github.com/com-pas/open-scd/commit/f5b05176aa97d0db8e688bb509c907c6573aa753))
+
+
+### 🐞 Bug Fixes
+
+* Allow SetAttributes without namespace object ([58b67bf](https://github.com/com-pas/open-scd/commit/58b67bfb762c5aae4f98c5ca1dabff53eb93f623))
+* Allow setattributes without ns object ([01c0420](https://github.com/com-pas/open-scd/commit/01c04208bd41287b54cbca7703bbd2025fb11250))
+* update core package version and restructure exports ([1cd643d](https://github.com/com-pas/open-scd/commit/1cd643d651f9e34ccfa91be013f94dfccc26bf80))
+
 ## [0.1.1](https://github.com/openscd/open-scd/compare/core-v0.1.0...core@v0.1.1) (2024-01-11)
 
 

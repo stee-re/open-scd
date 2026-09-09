@@ -1,16 +1,16 @@
 import { html, TemplateResult } from 'lit-element';
 import { get } from 'lit-translate';
 
-import { cloneElement } from '@openscd/xml';
+import { cloneElement } from '@compas-oscd/xml';
 
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
   getValue,
   Wizard,
   WizardAction,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
-
+} from '@compas-oscd/open-scd/dist/foundation.js';
 interface ContentOptions {
   refreshTime: string | null;
   sampleRate: string | null;
@@ -22,7 +22,7 @@ interface ContentOptions {
 export function contentSmvOptsWizard(option: ContentOptions): TemplateResult[] {
   return Object.entries(option).map(
     ([key, value]) =>
-      html`<wizard-checkbox
+      oscdHtml`<wizard-checkbox
         label="${key}"
         .maybeValue=${value}
         nullable

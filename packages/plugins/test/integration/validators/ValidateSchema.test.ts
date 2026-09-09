@@ -1,11 +1,12 @@
 import { expect, fixture, html } from '@open-wc/testing';
+import { useFakeTimers } from 'sinon';
 
-import '@openscd/open-scd/test/mock-open-scd.js';
-import { MockOpenSCD } from '@openscd/open-scd/test/mock-open-scd.js';
-import type { Plugin } from '@openscd/open-scd/src/plugin.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockOpenSCD } from '@compas-oscd/open-scd/dist/test-helper';
+import type { Plugin } from '@compas-oscd/open-scd/dist/plugin.js';
 
 import ValidateSchema from '../../../src/validators/ValidateSchema.js';
-import { IssueDetail, LogEntry } from '@openscd/core/foundation/deprecated/history.js';
+import { IssueDetail, LogEntry } from '@compas-oscd/core';
 
 describe('ValidateSchema plugin', () => {
   if (customElements.get('') === undefined)
@@ -13,17 +14,29 @@ describe('ValidateSchema plugin', () => {
 
   let parent: MockOpenSCD;
   let element: ValidateSchema;
+  let clock: { restore: () => void };
 
   let valid2007B4: XMLDocument;
   let invalid2007B: XMLDocument;
 
+  before(() => {
+    clock = useFakeTimers(new Date(2026, 7, 7, 15, 6, 22));
+  });
+
+  after(() => {
+    clock.restore();
+  });
+
   before(async () => {
     parent = await fixture(html`
-      <mock-open-scd .mockPlugins=${builtinPlugins}><validate-schema></validate-schema></mock-open-scd>
+      <mock-open-scd .mockPlugins=${builtinPlugins}
+        ><validate-schema></validate-schema
+      ></mock-open-scd>
     `);
 
     element = parent.getActivePlugin();
-    element.pluginId = 'http://localhost:8000/plugins/src/validators/ValidateSchema.js';
+    element.pluginId =
+      'http://localhost:8000/plugins/src/validators/ValidateSchema.js';
     await parent.updateComplete;
   });
 
@@ -52,7 +65,9 @@ describe('ValidateSchema plugin', () => {
 
     it('indicates successful schema validation in the diagnoses pane', async () => {
       const lastEntry = <IssueDetail[]>(
-        parent.historyAddon.diagnoses.get('http://localhost:8000/plugins/src/validators/ValidateSchema.js')
+        parent.historyAddon.diagnoses.get(
+          'http://localhost:8000/plugins/src/validators/ValidateSchema.js'
+        )
       );
       expect(lastEntry.length).to.equal(1);
       expect(lastEntry[0].title).to.contain(
@@ -67,7 +82,6 @@ describe('ValidateSchema plugin', () => {
         'valid2007B XML schema validation successful'
       );
     });
-
   });
 
   describe('for invalid SCL files', () => {
@@ -96,8 +110,11 @@ describe('ValidateSchema plugin', () => {
     });
 
     it('create issues in diagnose', async () =>
-      expect(parent.historyAddon.diagnoses.get('http://localhost:8000/plugins/src/validators/ValidateSchema.js'))
-        .to.not.be.undefined);
+      expect(
+        parent.historyAddon.diagnoses.get(
+          'http://localhost:8000/plugins/src/validators/ValidateSchema.js'
+        )
+      ).to.not.be.undefined);
 
     it('generates error messages in the log', async () => {
       const lastLogEntry = <LogEntry>parent.historyAddon.log.pop();
@@ -107,9 +124,7 @@ describe('ValidateSchema plugin', () => {
       );
     });
   });
-
 });
-
 
 const builtinPlugins: Plugin[] = [
   {
@@ -141,7 +156,9 @@ const builtinPlugins: Plugin[] = [
   },
   {
     name: 'Subscriber Message Binding (GOOSE)',
-    src: generatePluginPath('plugins/src/editors/GooseSubscriberMessageBinding.js'),
+    src: generatePluginPath(
+      'plugins/src/editors/GooseSubscriberMessageBinding.js'
+    ),
     icon: 'link',
     default: false,
     kind: 'editor',
@@ -150,7 +167,9 @@ const builtinPlugins: Plugin[] = [
   },
   {
     name: 'Subscriber Data Binding (GOOSE)',
-    src: generatePluginPath('plugins/src/editors/GooseSubscriberDataBinding.js'),
+    src: generatePluginPath(
+      'plugins/src/editors/GooseSubscriberDataBinding.js'
+    ),
     icon: 'link',
     default: false,
     kind: 'editor',
@@ -159,7 +178,9 @@ const builtinPlugins: Plugin[] = [
   },
   {
     name: 'Subscriber Message Binding (SMV)',
-    src: generatePluginPath('plugins/src/editors/SMVSubscriberMessageBinding.js'),
+    src: generatePluginPath(
+      'plugins/src/editors/SMVSubscriberMessageBinding.js'
+    ),
     icon: 'link',
     default: false,
     kind: 'editor',
@@ -376,5 +397,5 @@ const builtinPlugins: Plugin[] = [
 ];
 
 export function generatePluginPath(plugin: string): string {
-  return location.origin+location.pathname+plugin;
+  return location.origin + location.pathname + plugin;
 }

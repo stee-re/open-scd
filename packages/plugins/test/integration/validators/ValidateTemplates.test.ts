@@ -1,8 +1,9 @@
 import { expect, fixture, html } from '@open-wc/testing';
+import { useFakeTimers } from 'sinon';
 
-import '@openscd/open-scd/test/mock-open-scd.js';
-import { MockOpenSCD } from '@openscd/open-scd/test/mock-open-scd.js';
-import type { Plugin } from '@openscd/open-scd/src/plugin.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockOpenSCD } from '@compas-oscd/open-scd/dist/test-helper';
+import type { Plugin } from '@compas-oscd/open-scd/dist/plugin.js';
 
 import ValidateTemplates from '../../../src/validators/ValidateTemplates.js';
 
@@ -12,8 +13,17 @@ describe('ValidateTemplates OpenSCD integration test ', () => {
 
   let parent: MockOpenSCD;
   let element: ValidateTemplates;
+  let clock: { restore: () => void };
 
   let doc: XMLDocument;
+
+  before(() => {
+    clock = useFakeTimers(new Date(2026, 7, 7, 15, 6, 22));
+  });
+
+  after(() => {
+    clock.restore();
+  });
 
   describe('with a valid DataTypeTemplates section', () => {
     beforeEach(async () => {
@@ -70,7 +80,7 @@ describe('ValidateTemplates OpenSCD integration test ', () => {
       await expect(parent.historyAddon.diagnosticUI).to.equalSnapshot();
     });
   });
-  describe('with schema version smaller "2007B5"', () => {
+  describe('with schema version smaller "2007B4"', () => {
     beforeEach(async () => {
       doc = await fetch('/test/testfiles/valid2007B.scd')
         .then(response => response.text())

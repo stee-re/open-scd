@@ -1,5 +1,154 @@
 # Changelog
 
+## [0.45.13](https://github.com/com-pas/open-scd/compare/v0.45.12...v0.45.13) (2026-05-07)
+
+
+### Bug Fixes
+
+* set scl schema version back to minimal of 2007B4 ([2832053](https://github.com/com-pas/open-scd/commit/2832053d9dd4e6f37d68576950c7bcbcb91e12a1))
+* set scl schema version back to minimum of 2007B4 ([9d56926](https://github.com/com-pas/open-scd/commit/9d569262375fb7c109add431592a10b0264894fd))
+
+## [0.45.12](https://github.com/com-pas/open-scd/compare/v0.45.11...v0.45.12) (2026-04-29)
+
+
+### Bug Fixes
+
+* **open-scd:** Export test helpers ([e41610b](https://github.com/com-pas/open-scd/commit/e41610b31ac948c939b291f8bdc8a11fc4ba002a))
+
+## [0.45.11](https://github.com/com-pas/open-scd/compare/v0.45.10...v0.45.11) (2026-04-28)
+
+
+### Bug Fixes
+
+* Fix package lock ([51e2ba0](https://github.com/com-pas/open-scd/commit/51e2ba0af2b37d673465032a9e9499dfd7aa772e))
+* Fix package lock ([909c1e7](https://github.com/com-pas/open-scd/commit/909c1e78b10c637585771bb18459f177eb8cdb79))
+
+## [0.45.10](https://github.com/com-pas/open-scd/compare/v0.45.9...v0.45.10) (2026-04-28)
+
+
+### Bug Fixes
+
+* **plugins:** Fix core imports ([2f4f945](https://github.com/com-pas/open-scd/commit/2f4f945888f6034ce426928c22f02aefafbf4933))
+* **plugins:** Fix core imports ([4c1a26a](https://github.com/com-pas/open-scd/commit/4c1a26a390f5824941a47905270e37de771a7f5f))
+
+## [0.45.9](https://github.com/com-pas/open-scd/compare/v0.45.8...v0.45.9) (2026-04-28)
+
+
+### Bug Fixes
+
+* Rendering issues with icons ([d648035](https://github.com/com-pas/open-scd/commit/d648035c149494021ca63205f8928d57ace5e98c))
+
+## [0.45.8](https://github.com/com-pas/open-scd/compare/v0.45.7...v0.45.8) (2026-04-16)
+
+
+### Bug Fixes
+
+* Raise plugins package version ([b140236](https://github.com/com-pas/open-scd/commit/b140236283982d3735dfd5c786615215ac9ce6aa))
+* Raise plugins package version to 0.0.4 ([eb36364](https://github.com/com-pas/open-scd/commit/eb36364f6c4c2ff0aa426fb6d2e0bc2422606d87))
+
+## [0.45.7](https://github.com/com-pas/open-scd/compare/v0.45.6...v0.45.7) (2026-04-16)
+
+
+### Bug Fixes
+
+* Fix plugins version ([9f57703](https://github.com/com-pas/open-scd/commit/9f57703ae0b06f329e8ba6be05d74584e5fcab52))
+* Fix plugins version ([41a0657](https://github.com/com-pas/open-scd/commit/41a06576072e75ad9f3c21ae879c117904db9d62))
+
+## [0.45.6](https://github.com/com-pas/open-scd/compare/v0.45.5...v0.45.6) (2026-04-16)
+
+
+### Bug Fixes
+
+* **wizard-dialog:** handle deep selection of inputs in act method ([035e617](https://github.com/com-pas/open-scd/commit/035e617694e7d53f56aa3442a49b4d1b6594eadd))
+
+## [0.45.5](https://github.com/com-pas/open-scd/compare/v0.45.4...v0.45.5) (2026-04-08)
+
+
+### Bug Fixes
+
+* Trigger release please for plugins deployment ([8581fc4](https://github.com/com-pas/open-scd/commit/8581fc411da41139d6ce1efd2942c9b959117ee9))
+* Trigger release please for plugins deployment ([5847670](https://github.com/com-pas/open-scd/commit/5847670f1fd275342ea6b4b289e93edb16a62b17))
+
+## [0.45.4](https://github.com/com-pas/open-scd/compare/v0.45.3...v0.45.4) (2026-04-07)
+
+
+### Bug Fixes
+
+* Raise plugins version to 0.0.3 ([d651162](https://github.com/com-pas/open-scd/commit/d6511620a93f2b19b59b0854fbced0c0429458c2))
+* Raise plugins version to 0.0.3 ([01c7c88](https://github.com/com-pas/open-scd/commit/01c7c881f2eb32252daf3019bd114e46002aad94))
+
+## [0.45.3](https://github.com/com-pas/open-scd/compare/v0.45.2...v0.45.3) (2026-04-02)
+
+
+### Bug Fixes
+
+* Trigger open-scd publish 2 ([42588c2](https://github.com/com-pas/open-scd/commit/42588c21f74b55fbf67ca7eaa6f62ea65fe1c001))
+* Trigger open-scd publish 2 ([8028bc7](https://github.com/com-pas/open-scd/commit/8028bc77ca2770228181194721430ffebcd3e3ea))
+
+## [0.45.2](https://github.com/com-pas/open-scd/compare/v0.45.1...v0.45.2) (2026-04-01)
+
+
+### Bug Fixes
+
+* Deploy open-scd package v0.34.46 ([39e677a](https://github.com/com-pas/open-scd/commit/39e677a7b76f186ea08b2c0e747c70241eea9b8c))
+* Deploy open-scd package v0.34.46 ([6cc3257](https://github.com/com-pas/open-scd/commit/6cc325745665e1b1d79b1f84c323a90d7218d822))
+
+## [0.45.1](https://github.com/com-pas/open-scd/compare/v0.45.0...v0.45.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* update GitHub Actions to use latest action versions ([d6634c6](https://github.com/com-pas/open-scd/commit/d6634c629a19b59764c4279be1bf4488bf336011))
+
+## [0.45.0](https://github.com/com-pas/open-scd/compare/v0.44.3...v0.45.0) (2026-03-20)
+
+
+### Features
+
+* add alias for @openscd/oscd-api/utils.js in snowpack config ([48e6157](https://github.com/com-pas/open-scd/commit/48e6157ec09047384f969d130b55ccf8f1fd3592))
+* add comments to clarify alias resolution for @openscd/oscd-api/utils.js ([07138c2](https://github.com/com-pas/open-scd/commit/07138c28553875ae15353555f6cf257089320f52))
+* add tests for EditorAction handling ([bf89aed](https://github.com/com-pas/open-scd/commit/bf89aed810d2ebf0124ad75aa422a19d080e857a))
+* remove redundant history updates in undo and redo methods ([75586e0](https://github.com/com-pas/open-scd/commit/75586e07b6c5186af2aa72ba817c0c8593473c37))
+* replace editor with @openscd/oscd-editor ([ff330a8](https://github.com/com-pas/open-scd/commit/ff330a8d035ab9c09443473fd23e3c74ecb4a225))
+* use official xml editor ([f5b0517](https://github.com/com-pas/open-scd/commit/f5b05176aa97d0db8e688bb509c907c6573aa753))
+
+
+### Bug Fixes
+
+* update script source paths to use %PUBLIC_URL% for consistency ([45cbfc9](https://github.com/com-pas/open-scd/commit/45cbfc977c90666aa6608356c28399799644444f))
+
+## [0.44.3](https://github.com/com-pas/open-scd/compare/v0.44.2...v0.44.3) (2026-02-02)
+
+
+### Bug Fixes
+
+* Allow SetAttributes without namespace object ([58b67bf](https://github.com/com-pas/open-scd/commit/58b67bfb762c5aae4f98c5ca1dabff53eb93f623))
+* Allow setattributes without ns object ([01c0420](https://github.com/com-pas/open-scd/commit/01c04208bd41287b54cbca7703bbd2025fb11250))
+* Export open scd component ([876ceeb](https://github.com/com-pas/open-scd/commit/876ceeb9ec8307fca6aa4a8fb06221ce2dedb36e))
+* Export open-scd and component ([859d0f4](https://github.com/com-pas/open-scd/commit/859d0f498c8e3eaf9180b4ee8cda75e13f5b01fc))
+
+## [0.44.2](https://github.com/com-pas/open-scd/compare/v0.44.1...v0.44.2) (2026-01-26)
+
+
+### Bug Fixes
+
+* clear diagnoses on history reset and add corresponding test ([0ce47ed](https://github.com/com-pas/open-scd/commit/0ce47ede2e885825c1a9629e3a91197d77f1f220))
+* clear diagnostics when new file is opened ([b38bbf2](https://github.com/com-pas/open-scd/commit/b38bbf24a6f5fda1ca677a82bda41bdb24555042))
+
+## [0.44.1](https://github.com/com-pas/open-scd/compare/v0.44.0...v0.44.1) (2026-01-20)
+
+
+### Bug Fixes
+
+* add missing exports for CommitDetail, LogDetail, and EditorActionEvent ([c3109ed](https://github.com/com-pas/open-scd/commit/c3109ed4b0c755912a7a3b93705b19dac4a4b894))
+* add missing exports for deprecated foundation components ([c81cff9](https://github.com/com-pas/open-scd/commit/c81cff99ed39abbbef4bc3e9f3faf70b44e4b736))
+* restore original names for deprecated editor actions ([d940480](https://github.com/com-pas/open-scd/commit/d9404802dc8b085b5393cd552f7cebc43d1cbbbe))
+* update core package version and restructure exports ([1cd643d](https://github.com/com-pas/open-scd/commit/1cd643d651f9e34ccfa91be013f94dfccc26bf80))
+* update core package version and restructure exports ([8a61a0e](https://github.com/com-pas/open-scd/commit/8a61a0e089d547873e67cddfd02dc75ad605d282))
+* update core package version to 0.1.23 ([6f1cfca](https://github.com/com-pas/open-scd/commit/6f1cfca8cc7ae1baf0fa9adb61f1cb2565b635b5))
+* update exports for editor actions and types for clarity ([bc04400](https://github.com/com-pas/open-scd/commit/bc04400b9151daa895adc9efac718eb725d9138c))
+* update history to match compas ([ecec576](https://github.com/com-pas/open-scd/commit/ecec576fa8923b9bd2446f855a423f35664213ed))
+
 ## [0.44.0](https://github.com/com-pas/open-scd/compare/v0.43.0...v0.44.0) (2025-11-13)
 
 

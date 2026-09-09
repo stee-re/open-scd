@@ -27,19 +27,19 @@ import './process-editor.js';
 import './substation-editor.js';
 import './process-editor.js';
 
-import { processIcon } from '@openscd/open-scd/src/icons/icons.js';
+import '@compas-oscd/open-scd/dist/icons/icons.components.js';
 import { styles } from './foundation.js';
 import {
   newWizardEvent,
   SCLTag,
   tags,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   getChildElementsByTagName,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
-import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
+import { newActionEvent } from '@compas-oscd/core';
 import { emptyWizard, wizards } from '../../wizards/wizard-library.js';
 
 function childTags(element: Element | null | undefined): SCLTag[] {
@@ -219,7 +219,7 @@ export class ProcessEditor extends LitElement {
   render(): TemplateResult {
     return html`<action-pane label=${this.header}>
       <mwc-icon class="substation-editor-icon" slot="icon"
-        >${processIcon}</mwc-icon
+        ><custom-icon-process></custom-icon-process></mwc-icon
       >
       <abbr slot="action" title="${get('edit')}">
         <mwc-icon-button

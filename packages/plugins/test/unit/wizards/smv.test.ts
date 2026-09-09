@@ -2,18 +2,14 @@ import { expect, fixture, html } from '@open-wc/testing';
 import { SinonSpy, spy } from 'sinon';
 import fc, { hexaString, integer } from 'fast-check';
 
-import '@openscd/open-scd/src/addons/Wizards.js';
-import { OscdWizards } from '@openscd/open-scd/src/addons/Wizards.js';
+import '@compas-oscd/open-scd/addons/Wizards.js';
+import { OscdWizards } from '@compas-oscd/open-scd/addons/Wizards.js';
 
-import { WizardInputElement } from '@openscd/open-scd/src/foundation.js';
-import {
-  ComplexAction,
-  Create,
-  Delete,
-} from '@openscd/core/foundation/deprecated/editor.js';
+import { WizardInputElement } from '@compas-oscd/open-scd/dist/foundation.js';
+import { ComplexAction, Create, Delete } from '@compas-oscd/core';
 import { editSMvWizard } from '../../../src/wizards/smv.js';
 import { invertedRegex, MAC, regExp } from '../../foundation.js';
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
 describe('Wizards for SCL element SMV', () => {
   let doc: XMLDocument;

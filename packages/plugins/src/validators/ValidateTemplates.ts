@@ -5,7 +5,7 @@ import {
   LogDetailBase,
   newIssueEvent,
   newLogEvent,
-} from '@openscd/core/foundation/deprecated/history.js';
+} from '@compas-oscd/core';
 import { validateChildren } from './templates/foundation.js';
 
 type ValidationResult = LogDetailBase | LogDetail;
@@ -42,7 +42,7 @@ export default class ValidateTemplates extends LitElement {
       this.doc.documentElement.getAttribute('release') ?? '',
     ];
 
-    if (!(version === '2007' && revision === 'B' && Number(release) >= 5)) {
+    if (!(version === '2007' && revision === 'B' && Number(release) > 3)) {
       this.dispatchEvent(
         newIssueEvent({
           validatorId: this.pluginId,

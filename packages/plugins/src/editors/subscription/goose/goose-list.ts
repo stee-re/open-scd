@@ -12,14 +12,14 @@ import { classMap } from 'lit-html/directives/class-map';
 import '@material/mwc-icon';
 import '@material/mwc-list/mwc-list-item';
 
-import '@openscd/open-scd/src/filtered-list.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
 import {
   getNameAttribute,
   identity,
   newWizardEvent,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 import { newGOOSESelectEvent } from './foundation.js';
-import { gooseIcon } from '@openscd/open-scd/src/icons/icons.js';
+import '@compas-oscd/open-scd/dist/icons/icons.components.js';
 import { wizards } from '../../../wizards/wizard-library.js';
 import { getOrderedIeds, styles } from '../foundation.js';
 
@@ -65,7 +65,7 @@ export class GooseList extends LitElement {
       hasMeta
       value="${identity(gseControl)}"
     >
-      <mwc-icon slot="graphic">${gooseIcon}</mwc-icon>
+      <mwc-icon slot="graphic"><custom-icon-goose></custom-icon-goose></mwc-icon>
       <span>${gseControl.getAttribute('name')}</span>
       <mwc-icon-button
         class="${classMap({

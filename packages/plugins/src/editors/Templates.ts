@@ -6,12 +6,15 @@ import '@material/mwc-icon-button';
 import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item';
 
-import '@openscd/open-scd/src/filtered-list.js';
-import { identity, newWizardEvent } from '@openscd/open-scd/src/foundation.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
+import {
+  identity,
+  newWizardEvent,
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
-import { createElement } from '@openscd/xml';
+import { createElement } from '@compas-oscd/xml';
 
-import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
+import { newActionEvent } from '@compas-oscd/core';
 import { styles } from './templates/foundation.js';
 
 import {
@@ -34,9 +37,9 @@ import {
 import { List } from '@material/mwc-list';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 import { SingleSelectedEvent } from '@material/mwc-list/mwc-list-foundation';
-import { nsd74, nsd7420 } from '@openscd/open-scd/src/foundation/nsd.js';
+import { nsd74, nsd7420 } from '@compas-oscd/open-scd/dist/foundation/nsd.js';
 
-const templates = fetch('public/xml/templates.scd')
+const templates = fetch('xml/templates.scd')
   .then(response => response.text())
   .then(str => new DOMParser().parseFromString(str, 'application/xml'));
 

@@ -18,7 +18,7 @@ import { Menu } from '@material/mwc-menu';
 import { IconButton } from '@material/mwc-icon-button';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 
-import '@openscd/open-scd/src/action-pane.js';
+import '@compas-oscd/open-scd/dist/action-pane.js';
 import './ied-editor.js';
 import './conducting-equipment-editor.js';
 import './general-equipment-editor.js';
@@ -28,17 +28,15 @@ import {
   newWizardEvent,
   SCLTag,
   tags,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   getChildElementsByTagName,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
-import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
-import {
-  bayIcon,
-  voltageLevelIcon,
-} from '@openscd/open-scd/src/icons/icons.js';
+import { newActionEvent } from '@compas-oscd/core';
+
+import '@compas-oscd/open-scd/dist/icons/icons.components.js';
 import { emptyWizard, wizards } from '../../wizards/wizard-library.js';
 import {
   cloneSubstationElement,
@@ -194,7 +192,7 @@ export class BayEditor extends LitElement {
   render(): TemplateResult {
     return html`${this.renderRedirectUI()}<action-pane label="${this.header}">
         <mwc-icon class="substation-editor-icon" slot="icon"
-          >${bayIcon}</mwc-icon
+          > <custom-icon-bay></custom-icon-bay> </mwc-icon
         >
         <abbr slot="action" title="${get('lnode.tooltip')}">
           <mwc-icon-button

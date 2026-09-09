@@ -1,20 +1,20 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { SinonSpy, spy } from 'sinon';
 
-import '@openscd/open-scd/src/addons/Wizards.js';
-import { OscdWizards } from '@openscd/open-scd/src/addons/Wizards.js';
+import '@compas-oscd/open-scd/addons/Wizards.js';
+import { OscdWizards } from '@compas-oscd/open-scd/addons/Wizards.js';
 
-import { WizardInputElement } from '@openscd/open-scd/src/foundation.js';
-import { 
+import { WizardInputElement } from '@compas-oscd/open-scd/dist/foundation.js';
+import {
   isCreate,
   isDelete,
   isReplace,
   isSimple,
-  ComplexAction, 
-  Create, 
-  Delete, 
-  Replace 
-} from '@openscd/core/foundation/deprecated/editor.js';
+  ComplexAction,
+  Create,
+  Delete,
+  Replace,
+} from '@compas-oscd/core';
 import {
   createSampledValueControlWizard,
   editSampledValueControlWizard,
@@ -23,9 +23,9 @@ import {
 } from '../../../src/wizards/sampledvaluecontrol.js';
 import fc, { integer } from 'fast-check';
 import { inverseRegExp, regExp, regexString } from '../../foundation.js';
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
-import { WizardCheckbox } from '@openscd/open-scd/src/wizard-checkbox.js';
-import { FinderList } from '@openscd/open-scd/src/finder-list.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import { WizardCheckbox } from '@compas-oscd/open-scd/dist/wizard-checkbox.js';
+import { FinderList } from '@compas-oscd/open-scd/dist/finder-list.js';
 
 describe('Wizards for SCL element SampledValueControl', () => {
   let doc: XMLDocument;

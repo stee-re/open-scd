@@ -20,24 +20,29 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
         with:
           submodules: "true"
 
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          node-version: "20.x"
+          cache: true
+          
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
+        with:
+          node-version: "24.x"
 
       - name: Install and Build OpenSCD
         if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
         run: |
-          npm i @nx/nx-linux-x64-gnu
-          npm clean-install
-          PUBLIC_URL=open-scd/pr-preview/pr-$PR_NUMBER npm run-script build
+          pnpm i @nx/nx-linux-x64-gnu
+          pnpm clean-install
+          PUBLIC_URL=open-scd/pr-preview/pr-$PR_NUMBER pnpm run-script build
 
       - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+        uses: rossjrw/pr-preview-action@ffa7509e91a3ec8dfc2e5536c4d5c1acdf7a6de9 #v1.8.1
         with:
-          source-dir: packages/distribution/build
+          source-dir: packages/distribution/dist
           umbrella-dir: pr-preview

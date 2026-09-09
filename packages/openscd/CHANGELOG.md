@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.35.3](https://github.com/com-pas/open-scd/compare/open-scd@v0.35.2...open-scd@v0.35.3) (2026-08-07)
+
+
+### 🐞 Bug Fixes
+
+* reset previous validation errors when validating ([#158](https://github.com/com-pas/open-scd/issues/158)) ([c497f27](https://github.com/com-pas/open-scd/commit/c497f275b47943cea78b430aaeefdb12246c0636))
+
+## [0.35.2](https://github.com/com-pas/open-scd/compare/open-scd@v0.35.1...open-scd@v0.35.2) (2026-07-29)
+
+
+### 🐞 Bug Fixes
+
+* update public file urls ([#153](https://github.com/com-pas/open-scd/issues/153)) ([1523d83](https://github.com/com-pas/open-scd/commit/1523d83d547be7901d3ee316569d11c2c9b36736))
+
+## [0.35.1](https://github.com/com-pas/open-scd/compare/open-scd@v0.35.0...open-scd@v0.35.1) (2026-07-09)
+
+
+### 📦 Miscellaneous Chores
+
+* update repository URLs to use com-pas organisation ([#145](https://github.com/com-pas/open-scd/issues/145)) ([d35b5ef](https://github.com/com-pas/open-scd/commit/d35b5eff1b31dd084b1156ab71f7fbae873102d1))
+
+## [0.35.0](https://github.com/com-pas/open-scd/compare/open-scd@v0.34.51...open-scd@v0.35.0) (2026-07-09)
+
+
+### ✨ Features
+
+* allow custom reserved value validation message in wizard textfield ([2b884b9](https://github.com/com-pas/open-scd/commit/2b884b9910e0dc8c189144072d046c837f28944a))
+* **communication:** validate duplicate IPs in ConnectedAP within the same SubNetwork ([568c944](https://github.com/com-pas/open-scd/commit/568c9442d9b4f6ab754805d6e770b67f5305c436))
+
+
+### 📦 Miscellaneous Chores
+
+* Adjust snapshots ([e2314dd](https://github.com/com-pas/open-scd/commit/e2314dd5fa996691715025521be6d4f5113535a4))
+* Fix plugins ([d249838](https://github.com/com-pas/open-scd/commit/d2498387ee01560667074424a86025cb1fd581c1))
+* migrate to pnpm ([#100](https://github.com/com-pas/open-scd/issues/100)) ([99da4ec](https://github.com/com-pas/open-scd/commit/99da4ec8128a745fd9821e3e6d87e64abdd70ef5))
+* pin dependencies + add npm dependabot config ([#102](https://github.com/com-pas/open-scd/issues/102)) ([b7ebf11](https://github.com/com-pas/open-scd/commit/b7ebf1138241c471005060319c3268b66ec9c488))
+
+## [0.34.51](https://github.com/com-pas/open-scd/compare/open-scd@v0.34.50...open-scd@v0.34.51) (2026-05-26)
+
+
+### 📦 Miscellaneous Chores
+
+* trigger workflow ([8af8d1b](https://github.com/com-pas/open-scd/commit/8af8d1bef5dde354b57fd3e726fa60ff0f80704f))
+
+## [0.34.50](https://github.com/com-pas/open-scd/compare/open-scd@v0.34.49...open-scd@v0.34.50) (2026-05-19)
+
+
+### 🐞 Bug Fixes
+
+* change release please config ([16d553c](https://github.com/com-pas/open-scd/commit/16d553ccc4dd4154d1c643d444951822724d990e))
+* set scl schema version back to minimal of 2007B4 ([2832053](https://github.com/com-pas/open-scd/commit/2832053d9dd4e6f37d68576950c7bcbcb91e12a1))
+* set scl schema version back to minimum of 2007B4 ([9d56926](https://github.com/com-pas/open-scd/commit/9d569262375fb7c109add431592a10b0264894fd))
+* trigger release plugins and openscd ([cab8ff2](https://github.com/com-pas/open-scd/commit/cab8ff24eb0535f7e4e9f7241e2efe9033c99ee5))
+
+
+### 📦 Miscellaneous Chores
+
+* Add missing readOnly property ([bfef5d1](https://github.com/com-pas/open-scd/commit/bfef5d1516dd36264f50638e2ba8d925631c9784))
+* Fix control-blocks-container test ([1043943](https://github.com/com-pas/open-scd/commit/10439439b306e9e9d1b4ae4f543cc89cb157f664))
+* Fix datasets-container ([6d87a6d](https://github.com/com-pas/open-scd/commit/6d87a6d245edd9d95d9dba1672e3f8dd935623aa))
+* Fix plugins tests ([7558102](https://github.com/com-pas/open-scd/commit/75581022ea47c8f6ee71dad1a3ccfc4b015582df))
+
 ## [0.34.0](https://github.com/openscd/open-scd/compare/open-scd-v0.33.1...open-scd@v0.34.0) (2024-01-10)
 
 

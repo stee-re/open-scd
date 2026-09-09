@@ -1,24 +1,47 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { SinonSpy, spy } from 'sinon';
 
-import '@openscd/open-scd/src/addons/Wizards.js';
-import { OscdWizards } from '@openscd/open-scd/src/addons/Wizards.js';
+import '@compas-oscd/open-scd/addons/Wizards.js';
+import { OscdWizards } from '@compas-oscd/open-scd/addons/Wizards.js';
 
 import { Checkbox } from '@material/mwc-checkbox';
 
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import { WizardInputElement } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
-  WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
-import { 
   isCreate,
   isDelete,
   isSimple,
-  ComplexAction, 
-  Delete, 
-  Create
-} from '@openscd/core/foundation/deprecated/editor.js';
+  ComplexAction,
+  Delete,
+  Create,
+} from '@compas-oscd/core';
 import { editConnectedApWizard } from '../../../src/wizards/connectedap.js';
+
+/** Create a second ConnectedAP in StationBus with a known IP to test duplicate-IP validation. */
+function addDuplicateConnectedApInStationBus(doc: XMLDocument): void {
+  const stationBus = doc.querySelector('SubNetwork[name="StationBus"]');
+  const firstConnectedAp = stationBus?.querySelector(':scope > ConnectedAP');
+  if (stationBus && firstConnectedAp) {
+    const duplicateConnectedAp = firstConnectedAp.cloneNode(true) as Element;
+    duplicateConnectedAp.setAttribute('iedName', 'IED-DUPLICATE');
+    duplicateConnectedAp.setAttribute('apName', 'P2');
+    const duplicateIp = duplicateConnectedAp.querySelector(
+      ':scope > Address > P[type="IP"]'
+    );
+    if (duplicateIp) duplicateIp.textContent = '192.168.210.112';
+    stationBus.appendChild(duplicateConnectedAp);
+  }
+}
+
+async function openConnectedApWizard(
+  element: OscdWizards,
+  doc: XMLDocument
+): Promise<void> {
+  const wizard = editConnectedApWizard(doc.querySelector('ConnectedAP')!);
+  element.workflow = [() => wizard];
+  await element.requestUpdate();
+}
 
 describe('Wizards for SCL element ConnectedAP', () => {
   let doc: XMLDocument;
@@ -44,9 +67,7 @@ describe('Wizards for SCL element ConnectedAP', () => {
         .then(response => response.text())
         .then(str => new DOMParser().parseFromString(str, 'application/xml'));
 
-      const wizard = editConnectedApWizard(doc.querySelector('ConnectedAP')!);
-      element.workflow.push(() => wizard);
-      await element.requestUpdate();
+      await openConnectedApWizard(element, doc);
 
       inputs = Array.from(element.wizardUI.inputs);
 
@@ -164,6 +185,45 @@ describe('Wizards for SCL element ConnectedAP', () => {
           'type'
         )
       ).to.exist;
+    });
+
+    it('shows contextual error for duplicate IP in same SubNetwork', async () => {
+      addDuplicateConnectedApInStationBus(doc);
+      await openConnectedApWizard(element, doc);
+      inputs = Array.from(element.wizardUI.inputs);
+
+      input = <WizardTextField>inputs.find(input => input.label === 'IP');
+      input.value = '192.168.210.112';
+      await input.requestUpdate();
+
+      expect(input.checkValidity()).to.be.false;
+      const textField = input.shadowRoot?.querySelector('mwc-textfield') as {
+        validationMessage: string;
+      };
+      expect(textField.validationMessage).to.equal(
+        'IP address is already in use in the subnetwork, a unique IP address is required'
+      );
+    });
+
+    it('does not emit update action when duplicate IP is entered', async () => {
+      addDuplicateConnectedApInStationBus(doc);
+      await openConnectedApWizard(element, doc);
+      inputs = Array.from(element.wizardUI.inputs);
+
+      primaryAction = <HTMLElement>(
+        element.wizardUI.dialog?.querySelector(
+          'mwc-button[slot="primaryAction"]'
+        )
+      );
+
+      input = <WizardTextField>inputs.find(input => input.label === 'IP');
+      input.value = '192.168.210.112';
+      await input.requestUpdate();
+
+      primaryAction.click();
+      await element.requestUpdate();
+
+      expect(actionEvent).to.not.have.been.called;
     });
   });
 });

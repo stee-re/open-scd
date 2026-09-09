@@ -1,14 +1,10 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 
-import '@openscd/open-scd/test/mock-open-scd.js';
-import { MockOpenSCD } from '@openscd/open-scd/test/mock-open-scd.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockOpenSCD } from '@compas-oscd/open-scd/dist/test-helper';
 
-import {
-  ComplexAction,
-  isSimple,
-  isReplace,
-} from '@openscd/core/foundation/deprecated/editor.js';
+import { ComplexAction, isSimple, isReplace } from '@compas-oscd/core';
 import UpdateDescriptionAbb from '../../../src/menu/UpdateDescriptionABB.js';
 
 describe('Update method for desc attributes in ABB IEDs', () => {
@@ -62,6 +58,8 @@ describe('Update method for desc attributes in ABB IEDs', () => {
       await expect(parent.wizardUI.dialog).to.equalSnapshot();
     });
     it('creates wizard that on save triggers a complex action containing selected desc updates', async () => {
+      await new Promise(r => setTimeout(r, 0));
+
       parent.wizardUI?.dialog
         ?.querySelector<HTMLElement>('mwc-button[slot="primaryAction"]')!
         .click();

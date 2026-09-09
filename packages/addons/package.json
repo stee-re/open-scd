@@ -1,7 +1,7 @@
 {
   "name": "@compas-oscd/addons",
   "version": "0.34.0",
-  "repository": "https://github.com/openscd/open-scd.git",
+  "repository": "https://github.com/com-pas/open-scd.git",
   "directory": "packages/addons",
   "description": "Official Addons for OpenSCD",
   "keywords": [
@@ -14,13 +14,13 @@
   ],
   "author": "OpenSCD",
   "license": "Apache-2.0",
+  "packageManager": "pnpm@11.5.0",
   "type": "module",
   "files": [
     "./dist/**"
   ],
   "dependencies": {
-    "@openscd/core": "npm:@compas-oscd/core@*",
-    "lit": "^2.2.7"
+    "lit": "2.8.0"
   },
   "//": {
     "clean": "rimraf build",
@@ -28,8 +28,8 @@
     "format:eslint": "eslint --ext .ts . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
-    "lint": "npm run lint:eslint && npm run lint:prettier",
-    "format": "npm run format:eslint && npm run format:prettier",
+    "lint": "pnpm run lint:eslint && pnpm run lint:prettier",
+    "format": "pnpm run format:eslint && pnpm run format:prettier",
     "test:snapshot": "web-test-runner --update-snapshots --coverage",
     "test:manual": "web-test-runner --manual",
     "test:watch": "web-test-runner --watch",
@@ -38,36 +38,35 @@
     "doc:clean": "npx rimraf doc",
     "doc:typedoc": "typedoc --out doc src",
     "doc:wca": "wca src --outDir doc/components",
-    "doc": "npm run doc:clean && npm run doc:typedoc && npm run doc:wca"
+    "doc": "pnpm run doc:clean && pnpm run doc:typedoc && pnpm run doc:wca"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "@open-wc/eslint-config": "^4.3.0",
-    "@open-wc/semantic-dom-diff": "^0.19.5",
-    "@open-wc/testing": "^2.5.33",
-    "@types/node": "^16.6.1",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
-    "@web/dev-server-esbuild": "^0.2.16",
-    "@web/test-runner": "^0.13.22",
-    "concurrently": "^6.2.1",
-    "deepmerge": "^4.2.2",
-    "es-dev-server": "^2.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-tsdoc": "^0.2.14",
-    "fast-check": "^2.19.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2",
-    "sinon": "^17.0.1",
-    "source-map": "^0.7.4",
-    "tslib": "^2.8.1",
-    "typedoc": "^0.28.15",
-    "typedoc-plugin-markdown": "3.10.4",
-    "typescript": "^5.9.3"
+    "@commitlint/cli": "21.1.0",
+    "@commitlint/config-conventional": "21.1.0",
+    "@open-wc/eslint-config": "7.0.0",
+    "@open-wc/semantic-dom-diff": "0.19.9",
+    "@open-wc/testing": "4.0.0",
+    "@types/node": "18.19.130",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "@web/dev-server-esbuild": "0.2.16",
+    "@web/test-runner": "0.20.2",
+    "concurrently": "7.6.0",
+    "deepmerge": "4.3.1",
+    "eslint": "8.20.0",
+    "eslint-config-prettier": "8.10.2",
+    "eslint-plugin-babel": "5.3.1",
+    "eslint-plugin-tsdoc": "0.2.17",
+    "fast-check": "3.23.2",
+    "husky": "9.1.7",
+    "lint-staged": "13.3.0",
+    "prettier": "2.8.8",
+    "sinon": "17.0.2",
+    "source-map": "0.7.6",
+    "tslib": "2.8.1",
+    "typedoc": "0.28.15",
+    "typedoc-plugin-markdown": "3.12.0",
+    "typescript": "5.9.3"
   },
   "eslintConfig": {
     "extends": [
@@ -131,6 +130,6 @@
         "hidden": true
       }
     ],
-    "commitUrlFormat": "https://github.com/openscd/open-scd/commits/{{hash}}"
+    "commitUrlFormat": "https://github.com/com-pas/open-scd/commits/{{hash}}"
   }
 }

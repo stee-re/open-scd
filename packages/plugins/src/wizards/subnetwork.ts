@@ -1,9 +1,10 @@
 import { html, TemplateResult } from 'lit-element';
 import { get } from 'lit-translate';
 
-import { cloneElement, createElement } from '@openscd/xml';
+import { cloneElement, createElement } from '@compas-oscd/xml';
 
-import '@openscd/open-scd/src/wizard-textfield.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   getMultiplier,
   getValue,
@@ -11,8 +12,8 @@ import {
   Wizard,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
-import { EditorAction } from '@openscd/core/foundation/deprecated/editor';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import { EditorAction } from '@compas-oscd/core';
 
 /** Initial attribute values suggested for `SubNetwork` creation */
 const initial = {
@@ -31,7 +32,7 @@ interface ContentOptions {
 
 function contentSubNetwork(options: ContentOptions): TemplateResult[] {
   return [
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="name"
       .maybeValue=${options.name}
       helper="${get('subnetwork.wizard.nameHelper')}"
@@ -39,20 +40,20 @@ function contentSubNetwork(options: ContentOptions): TemplateResult[] {
       validationMessage="${get('textfield.required')}"
       dialogInitialFocus
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       .maybeValue=${options.desc}
       nullable
       helper="${get('subnetwork.wizard.descHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="type"
       .maybeValue=${options.type}
       nullable
       helper="${get('subnetwork.wizard.typeHelper')}"
       pattern="${patterns.normalizedString}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="BitRate"
       .maybeValue=${options.BitRate}
       nullable

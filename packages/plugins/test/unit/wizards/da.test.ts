@@ -1,21 +1,16 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '@openscd/open-scd/src/addons/Wizards.js';
-import { OscdWizards } from '@openscd/open-scd/src/addons/Wizards.js';
+import '@compas-oscd/open-scd/addons/Wizards.js';
+import { OscdWizards } from '@compas-oscd/open-scd/addons/Wizards.js';
 
 import { wizardContent } from '../../../src/wizards/abstractda.js';
-import { WizardSelect } from '@openscd/open-scd/src/wizard-select.js';
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+import { WizardSelect } from '@compas-oscd/open-scd/dist/wizard-select.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   Wizard,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
-import { 
-  isCreate,
-  isReplace,
-  Create, 
-  Replace 
-} from '@openscd/core/foundation/deprecated/editor.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import { isCreate, isReplace, Create, Replace } from '@compas-oscd/core';
 import {
   createDaAction,
   renderDa,

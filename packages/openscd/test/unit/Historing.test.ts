@@ -1,17 +1,11 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '../mock-open-scd.js';
-import { mockEdits } from '../mock-edits.js';
-import { MockOpenSCD } from '../mock-open-scd.js';
+import '../../src/test-helper/mock-open-scd.js';
+import { MockOpenSCD } from '../../src/test-helper/mock-open-scd.js';
 
-import {
-  CommitEntry,
-  newIssueEvent,
-  newLogEvent,
-} from '@openscd/core/foundation/deprecated/history.js';
+import { newIssueEvent, newLogEvent, InsertV2 } from '@compas-oscd/core';
+import { createElement } from '@compas-oscd/xml';
 import { OscdHistory } from '../../src/addons/History.js';
-import { InsertV2 } from '@openscd/core';
-import { createElement } from '@openscd/xml';
 
 describe('HistoringElement', () => {
   let mock: MockOpenSCD;
@@ -27,14 +21,17 @@ describe('HistoringElement', () => {
           </Bay>
         </VoltageLevel>
       </Substation>`,
-      'application/xml',
+      'application/xml'
     );
 
-    mock = <MockOpenSCD>await fixture(html`<mock-open-scd .doc=${scd}></mock-open-scd>`);
+    mock = <MockOpenSCD>(
+      await fixture(html`<mock-open-scd .doc=${scd}></mock-open-scd>`)
+    );
     element = mock.historyAddon;
   });
 
-  it('starts out with an empty log', () => expect(element).property('log').to.be.empty);
+  it('starts out with an empty log', () =>
+    expect(element).property('log').to.be.empty);
 
   it('renders a placeholder message', () =>
     expect(element.logUI).to.contain('mwc-list-item[disabled]'));
@@ -95,7 +92,7 @@ describe('HistoringElement', () => {
       const insert: InsertV2 = {
         parent: voltageLevel,
         node: bay2,
-        reference: null
+        reference: null,
       };
       element.editor.commit(insert, { title: insertTitle });
 
@@ -117,24 +114,24 @@ describe('HistoringElement', () => {
       const insert: InsertV2 = {
         parent: voltageLevel,
         node: bay3,
-        reference: null
+        reference: null,
       };
 
       element.editor.commit(insert);
 
-      let [ bay2Insert, bay3Insert ] = element.history;
+      let [bay2Insert, bay3Insert] = element.history;
       expect(bay2Insert.isActive).to.be.false;
       expect(bay3Insert.isActive).to.be.true;
 
       element.editor.undo();
 
-      [ bay2Insert, bay3Insert ] = element.history;
+      [bay2Insert, bay3Insert] = element.history;
       expect(bay2Insert.isActive).to.be.true;
       expect(bay3Insert.isActive).to.be.false;
 
       element.editor.redo();
 
-      [ bay2Insert, bay3Insert ] = element.history;
+      [bay2Insert, bay3Insert] = element.history;
       expect(bay2Insert.isActive).to.be.false;
       expect(bay3Insert.isActive).to.be.true;
     });
@@ -206,6 +203,51 @@ describe('HistoringElement', () => {
         )![0];
         expect(issue.title).to.equal('test run 3');
       });
+    });
+
+    it('clears diagnoses when a new SCD file is opened (reset)', async () => {
+      element.dispatchEvent(
+        newIssueEvent({
+          validatorId: '/src/validators/ValidateSchema.js',
+          title: 'test run 1',
+        })
+      );
+      element.dispatchEvent(
+        newIssueEvent({
+          validatorId: '/src/validators/ValidateTemplates.js',
+          title: 'test run 3',
+        })
+      );
+      expect(element.diagnoses.size).to.equal(2);
+      element.dispatchEvent(newLogEvent({ kind: 'reset' }));
+      await element.updateComplete;
+      expect(element.diagnoses.size).to.equal(0);
+    });
+
+    it('clears only the targeted validator on empty-issues', async () => {
+      element.dispatchEvent(
+        newIssueEvent({
+          validatorId: '/src/validators/ValidateTemplates.js',
+          title: 'template issue',
+        })
+      );
+      await element.updateComplete;
+
+      mock.dispatchEvent(
+        new CustomEvent('empty-issues', {
+          bubbles: true,
+          composed: true,
+          detail: { pluginSrc: '/src/validators/ValidateSchema.js' },
+        })
+      );
+      await element.updateComplete;
+
+      expect(
+        element.diagnoses.get('/src/validators/ValidateSchema.js')!.length
+      ).to.equal(0);
+      expect(
+        element.diagnoses.get('/src/validators/ValidateTemplates.js')!.length
+      ).to.equal(1);
     });
   });
 });

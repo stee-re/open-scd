@@ -12,21 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
         with:
           submodules: "true"
 
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          node-version: "20.x"
+          cache: true
+          
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
+        with:
+          node-version: "24.x"
 
       - name: Install and Build OpenSCD
         run: |
-          npm i @nx/nx-linux-x64-gnu
-          npm clean-install
-          npm run-script build
-          npm run-script doc
+          pnpm i @nx/nx-linux-x64-gnu
+          pnpm clean-install
+          pnpm run-script build
+          pnpm run-script doc
 
       - name: Copy Core Docs to OpenSCD
         run: |
@@ -37,7 +42,7 @@ jobs:
           cp -R packages/plugins/doc packages/distribution/build/plugin-doc
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 #v4.9.0
         with:
           branch: master
           folder: packages/distribution/build

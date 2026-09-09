@@ -29,8 +29,8 @@ import {
   getNameAttribute,
   identity,
   newWizardEvent,
-} from '@openscd/open-scd/src/foundation.js';
-import { gooseIcon, smvIcon } from '@openscd/open-scd/src/icons/icons.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/icons/icons.components.js';
 import { wizards } from '../../wizards/wizard-library.js';
 
 import {
@@ -129,8 +129,8 @@ export class FcdaBindingList extends LitElement {
   @query('.control-block-list') controlBlockList!: List;
 
   private iconControlLookup: iconLookup = {
-    SampledValueControl: smvIcon,
-    GSEControl: gooseIcon,
+    SampledValueControl: html`<custom-icon-smv></custom-icon-smv>`,
+    GSEControl: html`<custom-icon-goose></custom-icon-goose>`,
   };
 
   constructor() {

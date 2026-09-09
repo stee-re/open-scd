@@ -11,8 +11,9 @@ import { Checkbox } from '@material/mwc-checkbox';
 import { List } from '@material/mwc-list';
 import { ListItemBase } from '@material/mwc-list/mwc-list-item-base';
 
-import '@openscd/open-scd/src/wizard-textfield.js';
-import '@openscd/open-scd/src/filtered-list.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
 import {
   Wizard,
   WizardActor,
@@ -21,17 +22,17 @@ import {
   getValue,
   isPublic,
   identity,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   createElement,
-} from '@openscd/xml';
+} from '@compas-oscd/xml';
 
 import {
   EditorAction,
   ComplexAction,
   SimpleAction,
-} from '@openscd/core/foundation/deprecated/editor.js';
+} from '@compas-oscd/core';
 import {
   getTypes,
   typeMaxLength,
@@ -41,7 +42,7 @@ import {
 import {
   mACAddressGenerator,
   appIdGenerator,
-} from '@openscd/open-scd/src/foundation/generators.js';
+} from '@compas-oscd/open-scd/dist/foundation/generators.js';
 
 interface AccessPointDescription {
   element: Element;
@@ -319,7 +320,7 @@ function existConnectedAp(accesspoint: Element): boolean {
 export function createTypeRestrictionCheckbox(
   element: Element
 ): TemplateResult {
-  return html`<mwc-formfield
+  return oscdHtml`<mwc-formfield
     label="${get('connectedap.wizard.addschemainsttype')}"
     ><mwc-checkbox
       id="typeRestriction"
@@ -332,15 +333,59 @@ export function createPTextField(
   element: Element,
   pType: string
 ): TemplateResult {
-  return html`<wizard-textfield
+  const currentValue =
+    element
+      .querySelector(`:scope > Address > P[type="${pType}"]`)
+      ?.textContent?.trim() ?? null;
+
+  if (pType !== 'IP') {
+    return oscdHtml`<wizard-textfield
+      required
+      label="${pType}"
+      pattern="${ifDefined(typePattern[pType])}"
+      ?nullable=${typeNullable[pType]}
+      .maybeValue=${currentValue}
+      maxLength="${ifDefined(typeMaxLength[pType])}"
+    ></wizard-textfield>`;
+  }
+
+  const duplicateIps = getDuplicateIpsInSubNetwork(element);
+
+  return oscdHtml`<wizard-textfield
     required
     label="${pType}"
     pattern="${ifDefined(typePattern[pType])}"
     ?nullable=${typeNullable[pType]}
-    .maybeValue=${element.querySelector(`:scope > Address > P[type="${pType}"]`)
-      ?.innerHTML ?? null}
+    .maybeValue=${currentValue}
     maxLength="${ifDefined(typeMaxLength[pType])}"
+    .reservedValues=${duplicateIps}
+    .reservedValueMessage=${
+      duplicateIps.length
+        ? 'IP address is already in use in the subnetwork, a unique IP address is required'
+        : undefined
+    }
   ></wizard-textfield>`;
+}
+
+function getDuplicateIpsInSubNetwork(connectedAp: Element): string[] {
+  const subNetwork = connectedAp.closest('SubNetwork');
+  if (!subNetwork) return [];
+
+  const duplicateIps: string[] = [];
+
+  Array.from(subNetwork.querySelectorAll(':scope > ConnectedAP'))
+    .filter(otherConnectedAp => otherConnectedAp !== connectedAp)
+    .forEach(otherConnectedAp => {
+      const ip = otherConnectedAp
+        .querySelector(':scope > Address > P[type="IP"]')
+        ?.textContent?.trim();
+
+      if (!ip || duplicateIps.includes(ip)) return;
+
+      duplicateIps.push(ip);
+    });
+
+  return duplicateIps;
 }
 
 /** @returns single page  [[`Wizard`]] for creating SCL element ConnectedAP. */
@@ -369,11 +414,11 @@ export function createConnectedApWizard(element: Element): Wizard {
         action: createConnectedApAction(element),
       },
       content: [
-        html` <filtered-list id="apList" multi
+        oscdHtml` <filtered-list id="apList" multi
           >${accessPoints.map(accesspoint => {
             const id = identity(accesspoint.element);
 
-            return html`<mwc-check-list-item
+            return oscdHtml`<mwc-check-list-item
               value="${id}"
               ?disabled=${accesspoint.connected}
               ><span>${id}</span></mwc-check-list-item
@@ -480,9 +525,9 @@ export function editConnectedApWizard(element: Element): Wizard {
         action: updateConnectedApAction(element),
       },
       content: [
-        html`${createTypeRestrictionCheckbox(element)}
+        oscdHtml`${createTypeRestrictionCheckbox(element)}
         ${getTypes(element).map(
-          pType => html`${createPTextField(element, pType)}`
+          pType => oscdHtml`${createPTextField(element, pType)}`
         )}`,
       ],
     },

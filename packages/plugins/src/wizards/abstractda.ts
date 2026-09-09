@@ -6,22 +6,22 @@ import { ListItem } from '@material/mwc-list/mwc-list-item';
 import { SelectedEvent } from '@material/mwc-list/mwc-list-foundation';
 import { Select } from '@material/mwc-select';
 
-import '@openscd/open-scd/src/wizard-checkbox.js';
-import '@openscd/open-scd/src/wizard-select.js';
-import '@openscd/open-scd/src/wizard-textfield.js';
+import '@compas-oscd/open-scd/dist/wizard-checkbox.js';
+import '@compas-oscd/open-scd/dist/wizard-select.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   createElement,
-} from '@openscd/xml';
-import { EditorAction } from '@openscd/core/foundation/deprecated/editor.js';
-import { WizardSelect } from '@openscd/open-scd/src/wizard-select.js';
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
+} from '@compas-oscd/xml';
+import { EditorAction } from '@compas-oscd/core';
+import { WizardSelect } from '@compas-oscd/open-scd/dist/wizard-select.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import { maxLength, patterns } from './foundation/limits.js';
 import { predefinedBasicTypeEnum, valKindEnum } from './foundation/enums.js';
 
-function selectType(e: SelectedEvent, data: Element, Val: string | null): void {
-  if (!e.target || !(e.target as Select).parentElement) return;
+function selectType(e: SelectedEvent, typeSelected: string | null, data: Element, Val: string | null): void {
+  if (!e.target || !(e.target as Select).parentElement || !typeSelected) return;
 
-  const typeSelected = (<Select>e.target).selected?.value;
   const selectedBType = (<WizardSelect>(
     (<Select>e.target).parentElement!.querySelector(
       'wizard-select[label="bType"]'
@@ -34,7 +34,7 @@ function selectType(e: SelectedEvent, data: Element, Val: string | null): void {
     data.querySelectorAll(`EnumType[id="${typeSelected}"] > EnumVal`)
   ).map(
     enumval =>
-      html`<mwc-list-item
+      oscdHtml`<mwc-list-item
         value="${enumval.textContent?.trim() ?? ''}"
         ?selected=${enumval.textContent?.trim() === Val}
         >${enumval.textContent?.trim()}</mwc-list-item
@@ -46,17 +46,16 @@ function selectType(e: SelectedEvent, data: Element, Val: string | null): void {
       'wizard-select[label="Val"]'
     )!
   );
-  render(html`${enumVals}`, selectValOptionUI);
+  render(oscdHtml`${enumVals}`, selectValOptionUI);
   selectValOptionUI.requestUpdate();
 }
 
 function selectBType(
   e: SelectedEvent,
+  bTypeSelected: string,
   bType: string | null,
   type: string | null
 ): void {
-  const bTypeSelected = (<Select>e.target).selected!.value;
-
   const typeUI = <Select>(
     (<Select>e.target).parentElement!.querySelector(
       'wizard-select[label="type"]'
@@ -111,7 +110,7 @@ export function wizardContent(
   data: Element
 ): TemplateResult[] {
   return [
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="name"
       .maybeValue=${name}
       helper="${get('scl.name')}"
@@ -122,20 +121,20 @@ export function wizardContent(
     >
       ></wizard-textfield
     >`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       helper="${get('scl.desc')}"
       .maybeValue=${desc}
       nullable
       pattern="${patterns.normalizedString}"
     ></wizard-textfield>`,
-    html`<wizard-select
+    oscdHtml`<wizard-select
       fixedMenuPosition
       label="bType"
       .value=${bType}
       helper="${get('scl.bType')}"
       required
-      @selected=${(e: SelectedEvent) => selectBType(e, bType, type)}
+      @selected=${(e: SelectedEvent) => selectBType(e, predefinedBasicTypeEnum[e.detail.index as number], bType, type)}
       >${predefinedBasicTypeEnum.map(
         redefinedBType =>
           html`<mwc-list-item value="${redefinedBType}"
@@ -143,29 +142,29 @@ export function wizardContent(
           >`
       )}</wizard-select
     >`,
-    html`<wizard-select
+    oscdHtml`<wizard-select
       label="type"
       .maybeValue=${type}
       helper="${get('scl.type')}"
       fixedMenuPosition
-      @selected=${(e: SelectedEvent) => selectType(e, data, Val)}
+      @selected=${(e: SelectedEvent) => selectType(e, types[e.detail.index as number]?.id, data, Val)}
       >${types.map(
         dataType =>
-          html`<mwc-list-item
+          oscdHtml`<mwc-list-item
             class="${dataType.tagName === 'EnumType' ? 'Enum' : 'Struct'}"
             value=${dataType.id}
             >${dataType.id}</mwc-list-item
           >`
       )}</wizard-select
     >`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="sAddr"
       .maybeValue=${sAddr}
       helper="${get('scl.sAddr')}"
       nullable
       pattern="${patterns.normalizedString}"
     ></wizard-textfield>`,
-    html`<wizard-select
+    oscdHtml`<wizard-select
       label="valKind"
       .maybeValue=${valKind}
       helper="${get('scl.valKind')}"
@@ -174,19 +173,19 @@ export function wizardContent(
       fixedMenuPosition
       >${valKindEnum.map(
         valKindOption =>
-          html`<mwc-list-item value="${valKindOption}"
+          oscdHtml`<mwc-list-item value="${valKindOption}"
             >${valKindOption}</mwc-list-item
           >`
       )}</wizard-select
     >`,
-    html`<wizard-checkbox
+    oscdHtml`<wizard-checkbox
       label="valImport"
       .maybeValue=${valImport}
       helper="${get('scl.valImport')}"
       nullable
       required
     ></wizard-checkbox>`,
-    html`<wizard-select
+    oscdHtml`<wizard-select
       label="Val"
       .maybeValue=${Val}
       helper="${get('scl.Val')}"
@@ -195,12 +194,12 @@ export function wizardContent(
         data.querySelectorAll(`EnumType > EnumVal[id="${type}"]`)
       ).map(
         enumVal =>
-          html`<mwc-list-item value="${enumVal.textContent?.trim() ?? ''}"
+          oscdHtml`<mwc-list-item value="${enumVal.textContent?.trim() ?? ''}"
             >${enumVal.textContent?.trim()}</mwc-list-item
           >`
       )}</wizard-select
     >`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="Val"
       .maybeValue=${Val}
       helper="${get('scl.Val')}"

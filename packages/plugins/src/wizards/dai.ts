@@ -1,18 +1,18 @@
 import { html, TemplateResult } from 'lit-element';
-import { nothing } from 'lit-html';
 import { get } from 'lit-translate';
 
 import { DaiFieldTypes, getCustomField } from './foundation/dai-field-type.js';
 
-import '@openscd/open-scd/src/wizard-textfield.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
 import {
   Wizard,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
-import { EditorAction, ComplexAction } from '@openscd/core/foundation/deprecated/editor.js';
-import { SCL_NAMESPACE } from '@openscd/open-scd/src/schemas.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import { EditorAction, ComplexAction } from '@compas-oscd/core';
+import { SCL_NAMESPACE } from '@compas-oscd/open-scd/dist/schemas.js';
 
 export function updateValue(element: Element, val: Element): WizardActor {
   return (inputs: WizardInputElement[]): EditorAction[] => {
@@ -94,13 +94,13 @@ export function renderDAIWizard(
   const daValue = element.querySelector('Val')?.textContent?.trim() ?? '';
 
   return [
-    html` ${getCustomField()[<DaiFieldTypes>bType].render(
+    oscdHtml` ${getCustomField()[<DaiFieldTypes>bType].render(
       element,
       instanceElement,
       numberOfmultipleSettings
     )}
     ${daValue
-      ? html`<wizard-textfield
+      ? oscdHtml`<wizard-textfield
           id="daVal"
           label="DA Template Value"
           .maybeValue=${daValue}
@@ -108,7 +108,7 @@ export function renderDAIWizard(
           disabled
         >
         </wizard-textfield>`
-      : nothing}`,
+      : ''}`,
   ];
 }
 

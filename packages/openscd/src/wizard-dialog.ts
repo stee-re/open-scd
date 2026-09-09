@@ -9,7 +9,7 @@ import {
   html,
   query,
 } from 'lit-element';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { get } from 'lit-translate';
 
 import '@material/mwc-button';
@@ -22,18 +22,15 @@ import { IconButton } from '@material/mwc-icon-button';
 import { List } from '@material/mwc-list';
 import { Menu } from '@material/mwc-menu';
 
-import { formatXml } from '@openscd/xml';
+import { formatXml } from '@compas-oscd/xml';
 
 import 'ace-custom-element';
 import './wizard-checkbox.js';
 import './wizard-textfield.js';
 import './wizard-select.js';
+import { WizardTextField } from './wizard-textfield.js';
 
-import {
-  newActionEvent,
-  Delete,
-  Create,
-} from '@openscd/core/foundation/deprecated/editor.js';
+import { newActionEvent, Delete, Create } from '@compas-oscd/core';
 import {
   Wizard,
   WizardInputElement,
@@ -198,6 +195,12 @@ export class WizardDialog extends LitElement {
   /** Commits `action` if all inputs are valid, reports validity otherwise. */
   async act(action?: WizardActor, primary = true): Promise<boolean> {
     if (action === undefined) return false;
+
+    for (const input of dialogInputs(this.dialog))
+      if (input instanceof WizardTextField) {
+        input.ensureValueUpdated();
+      }
+
     const wizardInputs = Array.from(this.inputs);
     const wizardList = <List | null>(
       this.dialog?.querySelector('filtered-list,mwc-list')
@@ -296,18 +299,17 @@ export class WizardDialog extends LitElement {
   renderPage(page: WizardPage, index: number): TemplateResult {
     const isProMode = localStorage.getItem('mode') === 'pro';
     const hasPageElement = Boolean(page.element);
-    const showCodeToggleButton = hasPageElement && isProMode
+    const showCodeToggleButton = hasPageElement && isProMode;
 
     let extraWidth = 0;
 
-    if(showCodeToggleButton && page.menuActions){
+    if (showCodeToggleButton && page.menuActions) {
       extraWidth = 96;
-    }else if(showCodeToggleButton || page.menuActions){
+    } else if (showCodeToggleButton || page.menuActions) {
       extraWidth = 48;
-    }else{
+    } else {
       extraWidth = 0;
     }
-
 
     return html`<mwc-dialog
       defaultAction="next"
@@ -330,7 +332,7 @@ export class WizardDialog extends LitElement {
       <div id="wizard-content">
         ${this.code && page.element
           ? html`<ace-editor
-              base-path="/public/ace"
+              base-path="/ace"
               wrap
               soft-tabs
               style="width: 80vw; height: calc(100vh - 240px);"

@@ -1,9 +1,9 @@
 import { get } from 'lit-translate';
 
-import { identity } from '@openscd/open-scd/src/foundation.js';
-import { LogDetailBase } from '@openscd/core/foundation/deprecated/history.js';
+import { identity } from '@compas-oscd/open-scd/dist/foundation.js';
+import { LogDetailBase } from '@compas-oscd/core';
 import { getAdjacentClass, validateChildren } from './foundation.js';
-import { nsd73, nsd74, nsd81 } from '@openscd/open-scd/src/foundation/nsd.js';
+import { nsd73, nsd74, nsd81 } from '@compas-oscd/open-scd/dist/foundation/nsd.js';
 
 async function getSpecificDataObject(
   lnClass: string | null | undefined,
