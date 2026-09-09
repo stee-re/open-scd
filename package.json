@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "clean": "lerna run clean",
-    "preinstall": "git submodule update --init --recursive --remote",
     "build": "cross-env NODE_OPTIONS=--no-experimental-require-module npx nx run-many -t build --all",
     "doc": "lerna run doc",
     "test": "npx nx run-many -t test --all --parallel=false",
